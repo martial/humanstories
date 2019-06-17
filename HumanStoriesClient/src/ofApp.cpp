@@ -14,11 +14,17 @@ void ofApp::setup(){
     cameraManager.setup();
     
     showAnalysis = true;
+    
+    
 
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    
+    ofLogNotice("width" ) << ofGetWidth();
+    ofLogNotice("height" ) << ofGetHeight();
+
     
     cameraManager.update();
     
@@ -34,7 +40,7 @@ void ofApp::update(){
                 cameraManager.updateCameras();
                 
             } else {
-                ofLogNotice("change camera");
+                //ofLogNotice("change camera");
                 //cameraManager.analyseNextCamera();
                 
             }

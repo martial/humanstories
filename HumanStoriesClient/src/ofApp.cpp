@@ -61,6 +61,11 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     
+    ofBackground(0);
+    
+    ofSetColor(ofRandom(255),0,0);
+    ofDrawRectangle(0.0, 0.0, 1920, 1080);
+    
     if(!showAnalysis)
         cameraManager.drawResult();
     else

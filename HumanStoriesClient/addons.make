@@ -1,4 +1,5 @@
 ofxIpVideoGrabber
 ofxMQTT
+ofxPiTFT
 ofxPoco
 ofxXmlSettings

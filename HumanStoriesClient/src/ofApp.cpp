@@ -3,6 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     
+    ofSetFrameRate(15);
     client.begin("127.0.0.1", 1883);
     client.connect("humanstories-server", "try", "try");
     
@@ -64,7 +65,7 @@ void ofApp::draw(){
     ofBackground(0);
     
     ofSetColor(ofRandom(255),0,0);
-    ofDrawRectangle(0.0, 0.0, 1920, 1080);
+    ofDrawRectangle(0.0, 0.0, 1920/2, 1080/2);
     
     if(!showAnalysis)
         cameraManager.drawResult();

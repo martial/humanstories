@@ -4,7 +4,7 @@
 void ofApp::setup(){
     
     ofSetFrameRate(15);
-    client.begin("127.0.0.1", 1883);
+    client.begin("192.168.1.12", 1883);
     client.connect("humanstories-server", "try", "try");
     
     ofAddListener(client.onOnline, this, &ofApp::onOnline);

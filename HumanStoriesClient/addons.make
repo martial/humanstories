@@ -1,0 +1,4 @@
+ofxIpVideoGrabber
+ofxMQTT
+ofxPoco
+ofxXmlSettings

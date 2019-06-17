@@ -157,7 +157,7 @@ void CameraManager::draw() {
 void CameraManager::drawAnalyzed() {
     ofSetColor(255,255,255,255);
     if(pastAnalyzedGrabber) {
-        ofRectangle rect = ofxImgSizeUtils::getCenteredRect(ofGetWidth(), ofGetHeight(), pastAnalyzedGrabber->getWidth(), pastAnalyzedGrabber->getHeight(), false);
+        ofRectangle rect = ofxImgSizeUtils::getCenteredRect(480, 320, pastAnalyzedGrabber->getWidth(), pastAnalyzedGrabber->getHeight(), false);
         pastAnalyzedGrabber->draw(rect);
         currentDrawnCamera = pastAnalyzedGrabber;
 
@@ -177,7 +177,7 @@ void CameraManager::drawAnalyzed() {
     if(medBrigthness > 10) {
         
         currentDrawnCamera = analyzedGrabber;
-        ofRectangle rect = ofxImgSizeUtils::getCenteredRect(ofGetWidth(), ofGetHeight(), analyzedGrabber->getWidth(), analyzedGrabber->getHeight(),false);
+        ofRectangle rect = ofxImgSizeUtils::getCenteredRect(480, 320, analyzedGrabber->getWidth(), analyzedGrabber->getHeight(),false);
         analyzedGrabber->draw(rect); // draw the camera
         
         if(analyzedGrabber->getCameraName() != currentPrintedID) {
@@ -192,7 +192,7 @@ void CameraManager::drawAnalyzed() {
 void CameraManager::drawResult() {
     
     ofSetColor(255,255,255,255);
-    ofRectangle rect = ofxImgSizeUtils::getCenteredRect(ofGetWidth(), ofGetHeight(), currentDrawnCamera->getWidth(), currentDrawnCamera->getHeight(), false);
+    ofRectangle rect = ofxImgSizeUtils::getCenteredRect(480, 320, currentDrawnCamera->getWidth(), currentDrawnCamera->getHeight(), false);
     currentDrawnCamera->draw(rect);
     
 }

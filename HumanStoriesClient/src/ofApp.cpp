@@ -23,9 +23,13 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     
-    ofLogNotice("width" ) << ofGetWidth();
-    ofLogNotice("height" ) << ofGetHeight();
+  
+    
+    if(ofGetFrameNum() % 500 == 0) {
+        cameraManager.analyseNextCamera();
+        ofLogNotice("jump" );
 
+    }
     
     cameraManager.update();
     
@@ -64,8 +68,7 @@ void ofApp::draw(){
     
     ofBackground(0);
     
-    ofSetColor(ofRandom(255),0,0);
-    ofDrawRectangle(0.0, 0.0, 1920/2, 1080/2);
+    //ofDrawRectangle(0.0, 0.0, 1920/2, 1080/2);
     
     if(!showAnalysis)
         cameraManager.drawResult();

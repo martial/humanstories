@@ -4,6 +4,7 @@
 void ofApp::setup(){
     
     ofSetFrameRate(15);
+    ofSetVerticalSync(true);
     client.begin("192.168.1.12", 1883);
     client.connect("humanstories-server", "try", "try");
     

@@ -68,8 +68,11 @@ void ofApp::draw(){
     
     ofBackground(0);
     
-    //ofDrawRectangle(0.0, 0.0, 1920/2, 1080/2);
+    ofSetColor(0);
+    ofDrawRectangle(0.0, 0.0, ofGetWidth(), ofGetHeight());
     
+    ofSetColor(255);
+
     if(!showAnalysis)
         cameraManager.drawResult();
     else

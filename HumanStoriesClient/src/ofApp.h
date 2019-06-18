@@ -6,7 +6,7 @@
 #include "CameraManager.hpp"
 
 #ifdef __linux__
-#include "ofxPiTFT.h"
+//#include "ofxPiTFT.h"
 #endif
 
 class ofApp : public ofBaseApp{
@@ -40,7 +40,7 @@ class ofApp : public ofBaseApp{
         string label, labelMode, location, number;
 
 #ifdef __linux__
-        ofxPiTFT    piTft;
+       // ofxPiTFT    piTft;
 #endif
 
 };

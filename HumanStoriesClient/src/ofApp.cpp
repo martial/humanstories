@@ -60,7 +60,7 @@ void ofApp::update(){
         }
         
     }
-
+    
 }
 
 //--------------------------------------------------------------
@@ -89,6 +89,9 @@ void ofApp::draw(){
         
     }
     
+    ofSetColor(0);
+    ofDrawRectangle(0.0, 0.0, 20, ofGetHeight());
+    ofDrawRectangle(0.0, 0.0, ofGetWidth() - 20, ofGetHeight());
 
 }
 

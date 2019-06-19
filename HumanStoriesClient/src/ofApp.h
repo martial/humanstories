@@ -6,7 +6,7 @@
 #include "CameraManager.hpp"
 
 #ifdef __linux__
-//#include "ofxPiTFT.h"
+#include "ofxPiTFT.h"
 #endif
 
 class ofApp : public ofBaseApp{
@@ -51,9 +51,12 @@ class ofApp : public ofBaseApp{
         void urlResponse(ofHttpResponse & response);
     
         string currentMode;
+    
 
 #ifdef __linux__
     
+    ofxPiTFT    piTft;
+
     void getMacAddress(char * uc_Mac)
     {
         int fd;

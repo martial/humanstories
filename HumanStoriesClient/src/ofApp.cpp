@@ -56,7 +56,7 @@ void ofApp::update(){
         cameraManager.analyseNextCamera();
         ofLogNotice("load config file" );
             
-        int id = ofLoadURLAsync(mainConfigUrl, "config-req");
+        ofLoadURLAsync(mainConfigUrl, "config-req");
 
     }
     

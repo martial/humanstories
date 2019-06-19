@@ -52,13 +52,13 @@ server.on('published', function (packet, client) {
                                     console.log("message " + packet.payload + " – topic "+ packet.topic);
 
    
-	if(client && client.id == "openframeworks") {
+	if(client && client.id == "humanstories-server") {
 
-                          console.log("Command " + packet.payload + " – topic "+ packet.topic);
+            console.log("Command " + packet.payload + " – topic "+ packet.topic);
 
 
-			//if(packet.topic == "command") {
-/*
+			if(packet.topic == "event-processed") {
+
 			 var message = {
                 topic: packet.topic,
                 payload: packet.payload, // or a Buffer
@@ -70,8 +70,8 @@ server.on('published', function (packet, client) {
                       console.log("Command " + packet.payload + " – topic "+ packet.topic);
                  });
 
-            //}
-            */
+            }
+          
 	}
            
 

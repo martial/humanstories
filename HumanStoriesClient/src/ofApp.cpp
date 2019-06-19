@@ -9,9 +9,10 @@ void ofApp::setup(){
     ofSetVerticalSync(true);
     
     mainConfigUrl = configJson.value("config-url", "https://www.screen-club.com/humanstories/main-config.json");
-    string serverIp = configJson.value("server-ip", "192.168.1.99");
+    string serverIp = configJson.value("server-ip", "192.168.0.99");
     int mqttPort = configJson.value("mqtt-port", 1883);
     
+    ofLogNotice("MQTT configuration") << serverIp << " " << serverIp;
     raspiId = configJson.value("raspi-id", 0);
 
     client.begin(serverIp, mqttPort);
@@ -189,9 +190,11 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 //--------------------------------------------------------------
 
 void ofApp::onOnline(){
-    ofLog() << "online";
+    ofLogNotice("MQTT") << "Online and suscribing";
     
-    client.subscribe("hello");
+    client.subscribe("event");
+    client.subscribe("event-processed");
+
 }
 //--------------------------------------------------------------
 

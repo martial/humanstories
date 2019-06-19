@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
-               BuildableName = "emptyExample.app"
-               BlueprintName = "emptyExample"
+               BuildableName = "HumanStoriesClient.app"
+               BlueprintName = "HumanStoriesClient"
                ReferencedContainer = "container:HumanStoriesClient.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,8 +33,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
-            BuildableName = "emptyExample.app"
-            BlueprintName = "emptyExample"
+            BuildableName = "HumanStoriesClient.app"
+            BlueprintName = "HumanStoriesClient"
             ReferencedContainer = "container:HumanStoriesClient.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -56,8 +56,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
-            BuildableName = "emptyExample.app"
-            BlueprintName = "emptyExample"
+            BuildableName = "HumanStoriesClient.app"
+            BlueprintName = "HumanStoriesClient"
             ReferencedContainer = "container:HumanStoriesClient.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -75,8 +75,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E4B69B5A0A3A1756003C02F2"
-            BuildableName = "emptyExample.app"
-            BlueprintName = "emptyExample"
+            BuildableName = "HumanStoriesClient.app"
+            BlueprintName = "HumanStoriesClient"
             ReferencedContainer = "container:HumanStoriesClient.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

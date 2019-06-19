@@ -3,10 +3,18 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     
+    configJson = ofLoadJson("config.json");
+    
     ofSetFrameRate(15);
     ofSetVerticalSync(true);
-    client.begin("192.168.1.12", 1883);
-    client.connect("humanstories-server", "try", "try");
+    
+    string serverIp = configJson.value("server-ip", "192.168.1.99");
+    int mqttPort = configJson.value("mqtt-port", 1883);
+    
+    raspiId = configJson.value("raspi-id", 0);
+
+    client.begin(serverIp, mqttPort);
+    client.connect("humanstories-raspi-"+ofToString(raspiId), "try", "try");
     
     ofAddListener(client.onOnline, this, &ofApp::onOnline);
     ofAddListener(client.onOffline, this, &ofApp::onOffline);
@@ -16,6 +24,20 @@ void ofApp::setup(){
     cameraManager.setup();
     
     showAnalysis = true;
+    
+#ifdef __linux__
+
+    char mac[32]={0};
+    getMacAddress (mac);
+    macAdress = ofToString(mac);
+    
+    
+    
+    
+#endif
+    
+    ofLogNotice("Mac address") << macAdress;
+    client.publish("human-stories", macAdress);
     
     
 
@@ -94,7 +116,7 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+cameraManager.analyseNextCamera();
 }
 
 //--------------------------------------------------------------

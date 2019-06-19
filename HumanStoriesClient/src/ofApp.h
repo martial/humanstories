@@ -6,6 +6,7 @@
 #include "CameraManager.hpp"
 
 #ifdef __linux__
+#include "ofxMacUtils.h"
 //#include "ofxPiTFT.h"
 #endif
 
@@ -33,11 +34,16 @@ class ofApp : public ofBaseApp{
         void onOffline();
         void onMessage(ofxMQTTMessage &msg);
     
+        ofJson configJson;
+        int raspiId;
+    
         CameraManager cameraManager;
         bool showAnalysis;
         string sentId;
         
         string label, labelMode, location, number;
+    
+        string macAdress;
 
 #ifdef __linux__
        // ofxPiTFT    piTft;

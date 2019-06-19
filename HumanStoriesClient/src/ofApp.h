@@ -6,7 +6,7 @@
 #include "CameraManager.hpp"
 
 #ifdef __linux__
-#include "ofxMacUtils.h"
+#include "ofxMacUtils.hpp"
 //#include "ofxPiTFT.h"
 #endif
 

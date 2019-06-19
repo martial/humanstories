@@ -282,7 +282,31 @@ void CameraManager::updateCameras(bool bSkipOld) {
 }
 
 
-
+void CameraManager::analyseNextCamera(int id, bool bSkipOld) {
+    
+    
+    if(analyzedGrabber && !bSkipOld)
+        pastAnalyzedGrabber = analyzedGrabber;
+    
+    currentAnalyzedCamera = id;
+    
+    
+    auto c = std::make_shared<Video::IPVideoGrabber>();
+    IPCameraDef& cam = ipcams[currentAnalyzedCamera];
+    c->setUsername(cam.getUsername());
+    c->setPassword(cam.getPassword());
+    c->setCameraName(ofToString(currentAnalyzedCamera));
+    
+    Poco::URI uri(cam.getURL());
+    c->setURI(uri);
+    c->connect();
+    
+    analyzedGrabber = c;
+    
+    analyzeTime = ofGetElapsedTimeMillis();
+    
+    
+}
 void CameraManager::analyseNextCamera(bool bSkipOld) {
     
     //currentAnalyzedCamera++;
@@ -307,7 +331,6 @@ void CameraManager::analyseNextCamera(bool bSkipOld) {
     
     analyzeTime = ofGetElapsedTimeMillis();
     
-    ofLogNotice("Jump camera");
     
 }
 

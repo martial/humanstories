@@ -95,6 +95,8 @@ public:
     
     std::shared_ptr<Video::IPVideoGrabber> analyzedGrabber, pastAnalyzedGrabber, currentDrawnCamera;
     void analyseNextCamera(bool bSkipOld = false);
+    void analyseNextCamera(int id, bool bSkipOld = false);
+
     void updateCameras(bool bSkipOld = false);
 
     void loadCamerasById(vector<string> names);

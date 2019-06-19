@@ -203,5 +203,11 @@ void ofApp::onOffline(){
 //--------------------------------------------------------------
 
 void ofApp::onMessage(ofxMQTTMessage &msg){
+    
+    if(msg.topic == "event-processed") {
+        
+        cameraManager.analyseNextCamera(ofToInt(msg.payload), true);
+    }
+    
     ofLog() << "message: " << msg.topic << " - " << msg.payload;
 }

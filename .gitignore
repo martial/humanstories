@@ -1,3 +1,5 @@
 MoscaServer/node_modules/*
 HumanStoriesClient/bin/HumanStoriesClient
 HumanStoriesClient/bin/HumanStoriesClient.app/*
+HumanStoriesServer/bin/HumanStoriesServer/*
+HumanStoriesServer/bin/data/temp/*

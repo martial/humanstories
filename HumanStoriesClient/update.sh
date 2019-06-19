@@ -1,1 +1,3 @@
-git pull origin master && make -j 4 && make RunRelease
+#!/bin/bash
+
+git pull origin master && ./rpi_startup.sh

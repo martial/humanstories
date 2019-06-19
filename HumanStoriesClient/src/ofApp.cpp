@@ -8,6 +8,7 @@ void ofApp::setup(){
     ofSetFrameRate(15);
     ofSetVerticalSync(true);
     
+    mainConfigUrl = configJson.value("config-url", "https://www.screen-club.com/humanstories/main-config.json");
     string serverIp = configJson.value("server-ip", "192.168.1.99");
     int mqttPort = configJson.value("mqtt-port", 1883);
     
@@ -24,6 +25,9 @@ void ofApp::setup(){
     cameraManager.setup();
     
     showAnalysis = true;
+    
+    ofRegisterURLNotification(this);
+
     
 #ifdef __linux__
 
@@ -50,7 +54,9 @@ void ofApp::update(){
     
     if(ofGetFrameNum() % 500 == 0) {
         cameraManager.analyseNextCamera();
-        ofLogNotice("jump" );
+        ofLogNotice("load config file" );
+            
+        int id = ofLoadURLAsync(mainConfigUrl, "config-req");
 
     }
     
@@ -112,6 +118,19 @@ void ofApp::draw(){
     
 
 
+}
+
+void ofApp::urlResponse(ofHttpResponse & response) {
+    if (response.status==200 && response.request.name == "config-req") {
+        
+        configJson = nlohmann::json::parse(response.data);
+        currentMode = configJson.value("mode", "live");
+        ofLogNotice("Mode is") << currentMode;
+
+        
+    } else {
+        cout << response.status << " " << response.error << endl;
+    }
 }
 
 //--------------------------------------------------------------

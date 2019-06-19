@@ -37,6 +37,10 @@ class ofApp : public ofBaseApp{
         ofJson configJson;
         int raspiId;
     
+        string mainConfigUrl;
+        ofJson mainConfigJson;
+
+    
         CameraManager cameraManager;
         bool showAnalysis;
         string sentId;
@@ -44,6 +48,10 @@ class ofApp : public ofBaseApp{
         string label, labelMode, location, number;
     
         string macAdress;
+    
+        void urlResponse(ofHttpResponse & response);
+    
+        string currentMode;
 
 #ifdef __linux__
        // ofxPiTFT    piTft;

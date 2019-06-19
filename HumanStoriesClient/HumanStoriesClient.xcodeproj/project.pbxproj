@@ -20,7 +20,6 @@
 		65EC41F99C45AE1CFFDE3470 /* messages_mosq.c in Sources */ = {isa = PBXBuildFile; fileRef = 3A4DECDF4B1DB8DFE5755300 /* messages_mosq.c */; };
 		6916B6DD29A60E830277EF47 /* read_handle.c in Sources */ = {isa = PBXBuildFile; fileRef = 91C2499493EA62FE13CE033C /* read_handle.c */; };
 		8032B08950A24F980638184D /* CameraManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8509C9463C78960FFA8B852A /* CameraManager.cpp */; };
-		836202AD22BA5C5C008CABCB /* ofxMacUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 836202AB22BA5C5C008CABCB /* ofxMacUtils.cpp */; };
 		87597B443E265D13D50E9798 /* ofxMQTT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F9550D43A7A9A99BA6246474 /* ofxMQTT.cpp */; };
 		926B19A31DB4291B7BC15003 /* read_handle_client.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D3F72FC2AB47AD6A4ACF42B /* read_handle_client.c */; };
 		933A2227713C720CEFF80FD9 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B40EDA85BEB63E46785BC29 /* tinyxml.cpp */; };
@@ -123,8 +122,6 @@
 		7A6C877B8EC4F7438DED9FB4 /* ecdh.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ecdh.h; path = ../../../addons/ofxPoco/libs/openssl/include/openssl/ecdh.h; sourceTree = SOURCE_ROOT; };
 		7D3A8C6EA022F43F7B57C119 /* pkcs12.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = pkcs12.h; path = ../../../addons/ofxPoco/libs/openssl/include/openssl/pkcs12.h; sourceTree = SOURCE_ROOT; };
 		832BDC407620CDBA568B713D /* tinyxmlerror.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = tinyxmlerror.cpp; path = ../../../addons/ofxXmlSettings/libs/tinyxmlerror.cpp; sourceTree = SOURCE_ROOT; };
-		836202AB22BA5C5C008CABCB /* ofxMacUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxMacUtils.cpp; sourceTree = "<group>"; };
-		836202AC22BA5C5C008CABCB /* ofxMacUtils.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ofxMacUtils.hpp; sourceTree = "<group>"; };
 		8509C9463C78960FFA8B852A /* CameraManager.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = CameraManager.cpp; path = src/CameraManager.cpp; sourceTree = SOURCE_ROOT; };
 		86E56FC6895A2058C9F55B92 /* tls_mosq.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 4; name = tls_mosq.c; path = ../../../addons/ofxMQTT/libs/mosquitto/src/tls_mosq.c; sourceTree = SOURCE_ROOT; };
 		8A1254FD4FD7284078EEE55E /* x509.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = x509.h; path = ../../../addons/ofxPoco/libs/openssl/include/openssl/x509.h; sourceTree = SOURCE_ROOT; };
@@ -951,8 +948,6 @@
 				8509C9463C78960FFA8B852A /* CameraManager.cpp */,
 				D0F86930EB9F7CE5E4029745 /* ofxImgSizeUtils.cpp */,
 				F98DC7C1AB1B061927F0BEA4 /* CameraManager.hpp */,
-				836202AB22BA5C5C008CABCB /* ofxMacUtils.cpp */,
-				836202AC22BA5C5C008CABCB /* ofxMacUtils.hpp */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -1092,7 +1087,6 @@
 				9D44DC88EF9E7991B4A09951 /* tinyxmlerror.cpp in Sources */,
 				5A4349E9754D6FA14C0F2A3A /* tinyxmlparser.cpp in Sources */,
 				63B57AC5BF4EF088491E0317 /* ofxXmlSettings.cpp in Sources */,
-				836202AD22BA5C5C008CABCB /* ofxMacUtils.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

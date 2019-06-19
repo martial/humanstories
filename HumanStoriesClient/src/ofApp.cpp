@@ -53,9 +53,7 @@ void ofApp::update(){
   
     
     if(ofGetFrameNum() % 500 == 0) {
-        cameraManager.analyseNextCamera();
-        ofLogNotice("load config file" );
-            
+       
         ofLoadURLAsync(mainConfigUrl, "config-req");
 
     }

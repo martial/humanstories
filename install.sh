@@ -1,8 +1,6 @@
 sudo apt-get update
 sudo apt-get upgrade
 
-
-
 curl -sL http://deb.nodesource.com/setup_8.x | sudo bash -
 sudo apt-get install nodejs
 curl https://openframeworks.cc/versions/v0.10.1/of_v0.10.1_linuxarmv6l_release.tar.gz --insecure -O
@@ -20,6 +18,7 @@ git clone https://github.com/martial/humanstories
 make
 
 cd ~
-wget https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/adafruit-pitft.sh
-chmod +x adafruit-pitft.sh
-sudo ./adafruit-pitft.sh
+git clone https://github.com/goodtft/LCD-show.git
+sudo chmod -R 755 LCD-show
+cd LCD-show/
+sudo ./LCD35-show

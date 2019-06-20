@@ -73,7 +73,13 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     
-    //client.update();
+    try {
+        client.update();
+
+    } catch (...) {
+        ofLogNotice("Error updating") << "";
+
+    }
     cameraManager.update();
     
     

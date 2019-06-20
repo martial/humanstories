@@ -212,15 +212,16 @@ void ofApp::onOffline(){
 
 void ofApp::onMessage(ofxMQTTMessage &msg){
     
+    ofLog() << "message: " << msg.topic << " - " << msg.payload;
+
     if(msg.topic == "event-processed") {
         
-        //cameraManager.analyseNextCamera(ofToInt(msg.payload), false);
+        cameraManager.analyseNextCamera(ofToInt(msg.payload), false);
     }
     
     if(msg.topic == "mode") {
         
-       // currentMode = msg.payload;
+        currentMode = msg.payload;
     }
     
-    ofLog() << "message: " << msg.topic << " - " << msg.payload;
 }

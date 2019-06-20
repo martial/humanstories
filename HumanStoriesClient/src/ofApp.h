@@ -53,6 +53,10 @@ class ofApp : public ofBaseApp{
         string currentMode;
         bool bConnected;
     
+        ofFbo fbo;
+        ofPixels screenPixels;
+        ofImage screenImg;
+    
 
 #ifdef __linux__
     

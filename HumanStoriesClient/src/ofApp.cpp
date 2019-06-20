@@ -64,7 +64,7 @@ void ofApp::setup(){
     
     ofRegisterURLNotification(this);
     
-   
+    fbo.allocate(ofGetWidth(), ofGetHeight(), GL_RGB);
     
     //client.publish("human-stories", macAdress);
     
@@ -94,10 +94,22 @@ void ofApp::draw(){
     
     ofSetColor(255);
 
+    fbo.begin();
+    ofClear(0,255);
     if(!showAnalysis)
         cameraManager.drawResult();
     else
         cameraManager.drawAnalyzed();
+    fbo.end();
+    
+    fbo.readToPixels(screenPixels);
+    screenImg.setFromPixels(screenPixels);
+    
+    
+    screenImg.crop(0.0, 0.0, ofGetWidth() / 3, ofGetHeight()/3);
+    
+    
+    screenImg.draw(0.0,0.0, ofGetWidth(), ofGetHeight());
     
     if(cameraManager.currentDrawnCamera) {
         
@@ -239,7 +251,7 @@ void ofApp::onMessage(ofxMQTTMessage &msg){
         ofLogNotice("event-processed-id") << rId << " - " << camId;
 
         
-        if(rId == raspiId)
+        //if(rId == raspiId)
             cameraManager.analyseNextCamera(camId, false);
     }
     

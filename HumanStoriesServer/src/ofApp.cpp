@@ -110,7 +110,7 @@ void ofApp::update(){
 
             
             currentAnalysed++;
-            if(currentAnalysed >= numOfClients - 1)
+            if(currentAnalysed >= numOfClients)
                 currentAnalysed = 0;
             
         }

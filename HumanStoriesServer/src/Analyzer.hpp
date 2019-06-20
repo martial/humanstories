@@ -114,7 +114,10 @@ public:
         
         
         ofJson locJson = ofLoadJson("geoloc/"+ ofToString(id)+".json");
-        city = locJson.value("city", "");
+        
+        if (locJson.find("city") != locJson.end()) {
+            city = locJson.value("city", "-");
+        }
         
         if (locJson.find("country") != locJson.end()) {
             country = locJson["country"].value("name", "");;

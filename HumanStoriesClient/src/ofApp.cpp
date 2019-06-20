@@ -216,9 +216,9 @@ void ofApp::onMessage(ofxMQTTMessage &msg){
 
     //ofLog() << "message: " << msg.topic << " - " << msg.payload;
 
-    if(msg.topic == "event-processed") {
+    if(msg.topic == "event-processed" && msg.payload != "") {
         
-        //cameraManager.analyseNextCamera(ofToInt(msg.payload), false);
+        cameraManager.analyseNextCamera(ofToInt(msg.payload), false);
     }
     
     if(msg.topic == "mode") {

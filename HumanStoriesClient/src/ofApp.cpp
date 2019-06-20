@@ -24,12 +24,26 @@ void ofApp::setup(){
     cameraManager.loadCameras();
     cameraManager.setup();
 
+    macAdress = "undefined";
+    ofLogNotice("setup") << "getting mac address";
+
+#ifdef __linux__
+    
+    char mac[32]={0};
+    getMacAddress (mac);
+    macAdress = ofToString(mac);
+    
+#endif
+    
+    ofLogNotice("Mac address") << macAdress;
+    
     ofAddListener(client.onOnline, this, &ofApp::onOnline);
     ofAddListener(client.onOffline, this, &ofApp::onOffline);
     ofAddListener(client.onMessage, this, &ofApp::onMessage);
     
+    
     client.begin(serverIp, mqttPort);
-    bool b = client.connect("humanstories-raspi-"+ofToString(ofRandom(99)));
+    bool b = client.connect("humanstories-raspi-"+macAdress);
     
     if(b) {
         ofLogNotice("MQTT") << "seems connected";
@@ -48,22 +62,8 @@ void ofApp::setup(){
     
     ofRegisterURLNotification(this);
     
-    macAdress = "undefined";
-    ofLogNotice("setup") << "getting mac address";
-
-#ifdef __linux__
-
-    char mac[32]={0};
-    getMacAddress (mac);
-    macAdress = ofToString(mac);
+   
     
-
-    
-    
-    
-#endif
-    
-    ofLogNotice("Mac address") << macAdress;
     //client.publish("human-stories", macAdress);
     
     

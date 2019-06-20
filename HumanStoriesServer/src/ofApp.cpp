@@ -18,6 +18,8 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     
+    client.update();
+    
     //darknet
     while(oscDarknet.hasWaitingMessages()){
         ofxOscMessage m;

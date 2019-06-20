@@ -28,7 +28,7 @@ void ofApp::setup(){
     ofAddListener(client.onOffline, this, &ofApp::onOffline);
     ofAddListener(client.onMessage, this, &ofApp::onMessage);
     
-    client.begin("localhost", mqttPort);
+    client.begin(serverIp, mqttPort);
     bool b = client.connect("humanstories-raspi-"+ofToString(ofRandom(99)));
     
     if(b) {

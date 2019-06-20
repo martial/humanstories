@@ -9,7 +9,7 @@ void ofApp::setup(){
     
     ofSetFrameRate(15);
     ofSetVerticalSync(true);
-    
+    ofHideCursor();
     mainConfigUrl = configJson.value("config-url", "https://www.screen-club.com/humanstories/main-config.json");
     string serverIp = configJson.value("server-ip", "192.168.0.99");
     int mqttPort = configJson.value("mqtt-port", 1883);

@@ -72,33 +72,8 @@ void ofApp::update(){
     
     cameraManager.update();
     
-    if(cameraManager.analyzedGrabber->isConnected()) {
-        
-        ofPixels & pixels = cameraManager.analyzedGrabber->getPixels();
-        
-        if(pixels.isAllocated()) {
-            
-            string analyzedId = cameraManager.analyzedGrabber->getCameraName();
-            
-            if(!showAnalysis) {
-                cameraManager.updateCameras();
-                
-            } else {
-                //ofLogNotice("change camera");
-                //cameraManager.analyseNextCamera();
-                
-            }
-            
-        }
-        
-    } else {
-        
-        if(cameraManager.analyzedGrabber->getReconnectCount() > 1 ) {
-            cameraManager.analyseNextCamera(true);
-            ofLogNotice("jump skip old");
-        }
-        
-    }
+    
+    
     
 }
 

@@ -289,9 +289,8 @@ void ofApp::onMessage(ofxMQTTMessage &msg){
         int camId   = ofToInt(splitted[1]);
         
         ofLogNotice("event-processed-id") << rId << " - " << camId;
-
         
-        //if(rId == raspiId)
+        if(rId == raspiId)
             cameraManager.analyseNextCamera(camId, false);
     }
     

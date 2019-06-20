@@ -19,6 +19,16 @@ void ofApp::setup(){
     
     numOfClients = 9;
     currentAnalysed = 0;
+    
+    macAdresses.push_back("b8:27:eb:bd:89:38");
+    macAdresses.push_back("b8:27:eb:4d:6d:cb");
+    macAdresses.push_back("b8:27:eb:17:43:d3");
+    macAdresses.push_back("b8:27:eb:8c:36:62");
+    macAdresses.push_back("b8:27:eb:e8:be:22");
+    macAdresses.push_back("b8:27:eb:52:eb:23");
+    macAdresses.push_back("b8:27:eb:e5:74:74");
+    macAdresses.push_back("b8:27:eb:dc:96:52");
+    macAdresses.push_back("b8:27:eb:45:03:a7");
 }
 
 //--------------------------------------------------------------
@@ -193,7 +203,8 @@ void ofApp::sendImgToOsc(string id) {
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     
-   
+    if(key == 'r')
+        client.publish("command", "sudo reboot");
     
     if(key == 't')
         client.publish("event-processed", "key");
@@ -203,7 +214,10 @@ void ofApp::keyPressed(int key){
     
     if(key == 'l')
         client.publish("mode", "live");
-
+    
+    if(key == 'i')
+        client.publish("mode", "id");
+    
 }
 
 //--------------------------------------------------------------
@@ -265,7 +279,7 @@ void ofApp::onOnline(){
         
         string str = ofToString(i) + "=" + macAdresses[i];
         client.publish("id", str);
-
+        ofLogNotice("send id") << str;
         
     }
   

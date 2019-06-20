@@ -48,9 +48,7 @@ void ofApp::setup(){
     if(b) {
         ofLogNotice("MQTT") << "seems connected";
         client.subscribe("mode");
-        
         client.subscribe("command");
-
         client.subscribe("event");
         client.subscribe("event-processed");
         client.subscribe("event-processed-id");
@@ -257,10 +255,15 @@ void ofApp::onMessage(ofxMQTTMessage &msg){
     if(msg.topic == "id") {
         
         ofLogNotice("get id") << msg.payload;
+        ofLogNotice("my address is ") << macAdress;
+
 
         vector<string> splitted = ofSplitString(msg.payload, "=");
         int id= ofToInt(splitted[0]);
         string address= splitted[1];
+        
+        ofLogNotice("check id  ") << id << " and address " << address;
+
         
         if(address == macAdress) {
             raspiId = id;

@@ -97,16 +97,21 @@ void ofApp::update(){
             if(bHasPeople) {
                 
                 for(int i=0; i<macAdresses.size(); i++) {
-                    string str = ofToString(currentAnalysed) + "/" + ofToString(i);
+                    string str = ofToString(i) + "/" + ofToString(id);
                     client.publish("event-processed-id", str);
+                    
+                    str = ofToString(i) + "/split";
+                    client.publish("layout", str);
                 }
                 
             } else {
-                for(int i=0; i<macAdresses.size(); i++) {
-                    string str = ofToString(currentAnalysed) + "/" + ofToString(i);
-                    client.publish("event-processed-id", str);
-                }
-
+                
+                string str = ofToString(currentAnalysed) + "/" +  ofToString(id);
+                client.publish("event-processed-id", str);
+                
+                str = ofToString(currentAnalysed) + "/normal";
+                client.publish("layout", str);
+                
             }
             
             r.getDetectedAsImages();
@@ -224,6 +229,8 @@ void ofApp::keyPressed(int key){
     
     if(key == 'i')
         client.publish("mode", "id");
+    
+   
     
     if(key == ' ') {
         

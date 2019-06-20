@@ -47,6 +47,8 @@ void ofApp::setup(){
     
     if(b) {
         ofLogNotice("MQTT") << "seems connected";
+        client.subscribe("layout");
+
         client.subscribe("mode");
         client.subscribe("command");
         client.subscribe("event");
@@ -68,7 +70,7 @@ void ofApp::setup(){
     
     //client.publish("human-stories", macAdress);
     
-    
+    currentLayout = "normal";
 
 }
 
@@ -104,42 +106,8 @@ void ofApp::draw(){
     
     fbo.readToPixels(screenPixels);
     screenImg.setFromPixels(screenPixels);
-    
-    /*
-    switch (raspiId) {
-        case 0:
-            screenImg.crop(ofGetWidth() / 3 * 0, ofGetHeight() / 3*0, ofGetWidth() / 3 *1, ofGetHeight() / 3*1);
-            break;
-        case 1:
-            screenImg.crop(ofGetWidth() / 3 * 1, ofGetHeight() / 3*0, ofGetWidth() / 3 *2, ofGetHeight() / 3*1);
-            break;
-        case 2:
-            screenImg.crop(ofGetWidth() / 3 * 2, ofGetHeight() / 3*0, ofGetWidth() / 3 *3, ofGetHeight() / 3*1);
-            break;
-        case 3:
-            screenImg.crop(ofGetWidth() / 3 * 0, ofGetHeight() / 3*1, ofGetWidth() / 3 *1, ofGetHeight() / 3*2);
-            break;
-        case 4:
-            screenImg.crop(ofGetWidth() / 3 * 1, ofGetHeight() / 3*1, ofGetWidth() / 3 *2, ofGetHeight() / 3*2);
-            break;
-        case 5:
-            screenImg.crop(ofGetWidth() / 3 * 2, ofGetHeight() / 3*1, ofGetWidth() / 3 *3, ofGetHeight() / 3*2);
-            break;
-        case 6:
-            screenImg.crop(ofGetWidth() / 3 * 0, ofGetHeight() / 3*2, ofGetWidth() / 3 *1, ofGetHeight() / 3*3);
-            break;
-        case 7:
-            screenImg.crop(ofGetWidth() / 3 * 1, ofGetHeight() / 3*2, ofGetWidth() / 3 *2, ofGetHeight() / 3*3);
-            break;
-        case 8:
-            screenImg.crop(ofGetWidth() / 3 * 2, ofGetHeight() / 3*2, ofGetWidth() / 3 *3, ofGetHeight() / 3*3);
-            break;
-
-        default:
-            break;
-    
-    }
-    */
+  
+    if (currentLayout == "split") {
 #ifdef __linux__
     
     int rowDiv = raspiId % 3;
@@ -149,16 +117,12 @@ void ofApp::draw(){
 #endif
     
     screenImg.draw(0.0,0.0, ofGetWidth(), ofGetHeight());
-    
-    
-    if(cameraManager.currentDrawnCamera) {
         
-        string analyzedId = cameraManager.currentDrawnCamera->getCameraName();
-        //Result & r = analyzer.getResult(analyzedId);
-        //number = r.getLocation();
-        
-    } else {
-        number ="";
+    }
+    
+    if (currentLayout == "normal") {
+
+        screenImg.draw(0.0,0.0, ofGetWidth(), ofGetHeight());
         
     }
     
@@ -294,6 +258,16 @@ void ofApp::onMessage(ofxMQTTMessage &msg){
             cameraManager.analyseNextCamera(camId, false);
     }
     
+    if(msg.topic == "layout" && msg.payload != "") {
+        
+        vector<string> splitted = ofSplitString(msg.payload, "/");
+        int rId     = ofToInt(splitted[0]);
+        string layout   = splitted[1];
+        
+        if(rId == raspiId)
+            currentLayout = layout;
+    }
+    
     if(msg.topic == "mode") {
         
         currentMode = msg.payload;
@@ -305,20 +279,14 @@ void ofApp::onMessage(ofxMQTTMessage &msg){
     
     if(msg.topic == "id") {
         
-        ofLogNotice("get id") << msg.payload;
-        ofLogNotice("my address is ") << macAdress;
-
-
+     
         vector<string> splitted = ofSplitString(msg.payload, "=");
         int id= ofToInt(splitted[0]);
         string address= splitted[1];
         
-        ofLogNotice("check id  ") << id << " and address " << address;
-
         
         if(address == macAdress) {
             raspiId = id;
-            ofLogNotice("set raspi id as") << raspiId;
 
         }
     }

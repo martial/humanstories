@@ -50,7 +50,7 @@ class ofApp : public ofBaseApp{
     
         void urlResponse(ofHttpResponse & response);
     
-        string currentMode;
+        string currentMode,  currentLayout;
         bool bConnected;
     
         ofFbo fbo;

@@ -105,6 +105,7 @@ void ofApp::draw(){
     fbo.readToPixels(screenPixels);
     screenImg.setFromPixels(screenPixels);
     
+    /*
     switch (raspiId) {
         case 0:
             screenImg.crop(ofGetWidth() / 3 * 0, ofGetHeight() / 3*0, ofGetWidth() / 3 *1, ofGetHeight() / 3*1);
@@ -138,6 +139,12 @@ void ofApp::draw(){
             break;
     
     }
+    */
+    
+    int rowDiv = raspiId % 3;
+    int colDiv = raspiId / 3;
+        
+    screenImg.crop(ofGetWidth() / 3 * rowDiv, ofGetHeight() / 3*colDiv, ofGetWidth() / 3 *(rowDiv + 1), ofGetHeight() / 3*(colDiv+1));
     
     
     screenImg.draw(0.0,0.0, ofGetWidth(), ofGetHeight());

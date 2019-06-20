@@ -140,12 +140,13 @@ void ofApp::draw(){
     
     }
     */
+#ifdef __linux__
     
     int rowDiv = raspiId % 3;
     int colDiv = raspiId / 3;
         
     screenImg.crop(ofGetWidth() / 3 * rowDiv, ofGetHeight() / 3*colDiv, ofGetWidth() / 3 *(rowDiv + 1), ofGetHeight() / 3*(colDiv+1));
-    
+#endif
     
     screenImg.draw(0.0,0.0, ofGetWidth(), ofGetHeight());
     

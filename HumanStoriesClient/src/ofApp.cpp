@@ -19,25 +19,28 @@ void ofApp::setup(){
     
     ofLogNotice("setup") << "json parsed";
     
-    
     ofLogNotice("setup") << "loading cameras";
 
     cameraManager.loadCameras();
     cameraManager.setup();
 
-    
-    
-    client.begin(serverIp, mqttPort);
-    bool b = client.connect("humanstories-raspi-"+ofToString(raspiId));
-    
-    if(b) {
-        ofLogNotice("MQTT") << "seems connected";
-        
-    }
-    
     ofAddListener(client.onOnline, this, &ofApp::onOnline);
     ofAddListener(client.onOffline, this, &ofApp::onOffline);
     ofAddListener(client.onMessage, this, &ofApp::onMessage);
+    
+    client.begin("localhost", mqttPort);
+    bool b = client.connect("humanstories-raspi-"+ofToString(ofRandom(99)));
+    
+    if(b) {
+        ofLogNotice("MQTT") << "seems connected";
+        client.subscribe("mode");
+        
+        client.subscribe("event");
+        client.subscribe("event-processed");
+        
+    }
+    
+  
 
    
     
@@ -70,11 +73,10 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     
-    if(bConnected) {
-        
-        client.update();
+    
+    client.update();
 
-    }
+    
     cameraManager.update();
     
     

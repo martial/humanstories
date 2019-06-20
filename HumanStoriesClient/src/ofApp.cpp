@@ -78,7 +78,6 @@ void ofApp::update(){
         ofLogNotice("update mqtt") << "";
 
         client.update();
-        ofLogNotice("Error updating") << "";
 
     }
     cameraManager.update();
@@ -211,12 +210,12 @@ void ofApp::onMessage(ofxMQTTMessage &msg){
     
     if(msg.topic == "event-processed") {
         
-        cameraManager.analyseNextCamera(ofToInt(msg.payload), false);
+        //cameraManager.analyseNextCamera(ofToInt(msg.payload), false);
     }
     
     if(msg.topic == "mode") {
         
-        currentMode = msg.payload;
+       // currentMode = msg.payload;
     }
     
     ofLog() << "message: " << msg.topic << " - " << msg.payload;

@@ -167,7 +167,15 @@ void ofApp::sendImgToOsc(string id) {
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    client.publish("event-debug", "key");
+    
+    if(key == 't')
+        client.publish("event-processed", "key");
+    
+    if(key == 'm')
+        client.publish("mode", "macadress");
+    
+    if(key == 'l')
+        client.publish("mode", "live");
 
 }
 

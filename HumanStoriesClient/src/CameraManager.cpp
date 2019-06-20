@@ -292,18 +292,26 @@ void CameraManager::analyseNextCamera(int id, bool bSkipOld) {
     
     
     auto c = std::make_shared<Video::IPVideoGrabber>();
-    IPCameraDef& cam = ipcams[currentAnalyzedCamera];
-    c->setUsername(cam.getUsername());
-    c->setPassword(cam.getPassword());
-    c->setCameraName(ofToString(currentAnalyzedCamera));
     
-    Poco::URI uri(cam.getURL());
-    c->setURI(uri);
-    c->connect();
-    
-    analyzedGrabber = c;
-    
-    analyzeTime = ofGetElapsedTimeMillis();
+    if(c) {
+        
+        IPCameraDef& cam = ipcams[currentAnalyzedCamera];
+        c->setUsername(cam.getUsername());
+        c->setPassword(cam.getPassword());
+        c->setCameraName(ofToString(currentAnalyzedCamera));
+        
+        Poco::URI uri(cam.getURL());
+        c->setURI(uri);
+        c->connect();
+        
+        analyzedGrabber = c;
+        
+        analyzeTime = ofGetElapsedTimeMillis();
+        
+    } else {
+        
+        ofLogNotice("error creating shared");
+    }
     
     
 }

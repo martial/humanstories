@@ -12,15 +12,25 @@ void ofApp::setup(){
     string serverIp = configJson.value("server-ip", "192.168.0.99");
     int mqttPort = configJson.value("mqtt-port", 1883);
     
-    ofLogNotice("MQTT configuration") << serverIp << " " << serverIp;
+    ofLogNotice("MQTT configuration") << serverIp << " " << mqttPort;
     raspiId = configJson.value("raspi-id", 0);
-
-    client.begin(serverIp, mqttPort);
-    client.connect("humanstories-raspi-"+ofToString(raspiId), "try", "try");
     
     ofAddListener(client.onOnline, this, &ofApp::onOnline);
     ofAddListener(client.onOffline, this, &ofApp::onOffline);
     ofAddListener(client.onMessage, this, &ofApp::onMessage);
+    
+    client.begin(serverIp, mqttPort);
+    bool b = client.connect("humanstories-raspi-"+ofToString(raspiId));
+    
+    if(b) {
+        ofLogNotice("MQTT") << "seems connected";
+        client.subscribe("mode");
+
+        client.subscribe("event");
+        client.subscribe("event-processed");
+    }
+    
+   
     
     cameraManager.loadCameras();
     cameraManager.setup();
@@ -28,7 +38,8 @@ void ofApp::setup(){
     showAnalysis = true;
     
     ofRegisterURLNotification(this);
-
+    
+    macAdress = "undefined";
     
 #ifdef __linux__
 
@@ -51,7 +62,7 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     
-  
+    client.update();
     
     if(ofGetFrameNum() % 500 == 0) {
        
@@ -115,6 +126,13 @@ void ofApp::draw(){
         
     }
     
+    if(currentMode == "macadress") {
+        
+        ofSetColor(255,0,0);
+        ofDrawBitmapString(macAdress, 20, 40);
+        
+    }
+    
 
 
 }
@@ -134,7 +152,7 @@ void ofApp::urlResponse(ofHttpResponse & response) {
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-cameraManager.analyseNextCamera();
+    cameraManager.analyseNextCamera(false);
 }
 
 //--------------------------------------------------------------
@@ -207,7 +225,12 @@ void ofApp::onMessage(ofxMQTTMessage &msg){
     
     if(msg.topic == "event-processed") {
         
-        cameraManager.analyseNextCamera(ofToInt(msg.payload), true);
+        cameraManager.analyseNextCamera(ofToInt(msg.payload), false);
+    }
+    
+    if(msg.topic == "mode") {
+        
+        currentMode = msg.payload;
     }
     
     ofLog() << "message: " << msg.topic << " - " << msg.payload;

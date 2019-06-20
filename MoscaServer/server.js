@@ -51,7 +51,7 @@ server.on('published', function (packet, client) {
           
                                     console.log("message " + packet.payload + " – topic "+ packet.topic);
 
-   
+   /*
 	if(client && client.id == "humanstories-server") {
 
             console.log("Command " + packet.payload + " – topic "+ packet.topic);
@@ -73,6 +73,7 @@ server.on('published', function (packet, client) {
             }
           
 	}
+*/
            
 
 });
@@ -80,4 +81,16 @@ server.on('published', function (packet, client) {
 // fired when the mqtt server is ready
 function setup() {
     console.log('Mosca server is up and running');
+    
+    var message = {
+    topic: "event-processed",
+    payload: "2", // or a Buffer
+    qos: 0, // 0, 1, or 2
+    retain: true // or true
+    };
+    
+    server.publish(message, function() {
+                   });
+    
+
 }

@@ -95,9 +95,18 @@ void ofApp::update(){
             }
             
             if(bHasPeople) {
-                ofLogNotice("PEOPLE") << id;
-                client.publish("event", "people");
                 
+                for(int i=0; i<macAdresses.size(); i++) {
+                    string str = ofToString(currentAnalysed) + "/" + ofToString(i);
+                    client.publish("event-processed-id", str);
+                }
+                
+            } else {
+                for(int i=0; i<macAdresses.size(); i++) {
+                    string str = ofToString(currentAnalysed) + "/" + ofToString(i);
+                    client.publish("event-processed-id", str);
+                }
+
             }
             
             r.getDetectedAsImages();
@@ -105,8 +114,6 @@ void ofApp::update(){
             
             //client.publish("event-processed", ofToString(id));
             
-            string str = ofToString(currentAnalysed) + "/" + ofToString(id);
-            client.publish("event-processed-id", str);
 
             
             currentAnalysed++;
@@ -217,6 +224,19 @@ void ofApp::keyPressed(int key){
     
     if(key == 'i')
         client.publish("mode", "id");
+    
+    if(key == ' ') {
+        
+        for(int i=0; i<macAdresses.size(); i++) {
+            
+            string str = ofToString(i) + "=" + macAdresses[i];
+            client.publish("id", str);
+            ofLogNotice("send id") << str;
+            
+        }
+        
+        
+    }
     
 }
 

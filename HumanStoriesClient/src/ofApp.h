@@ -51,6 +51,7 @@ class ofApp : public ofBaseApp{
         void urlResponse(ofHttpResponse & response);
     
         string currentMode;
+        bool bConnected;
     
 
 #ifdef __linux__

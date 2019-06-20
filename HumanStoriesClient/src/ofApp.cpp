@@ -30,9 +30,9 @@ void ofApp::setup(){
     ofAddListener(client.onMessage, this, &ofApp::onMessage);
     
     client.begin(serverIp, mqttPort);
-    bool b = client.connect("humanstories-raspi-"+ofToString(raspiId));
+    bConnected = client.connect("humanstories-raspi-"+ofToString(raspiId));
     
-    if(b) {
+    if(bConnected) {
         ofLogNotice("MQTT") << "seems connected";
         client.subscribe("mode");
 
@@ -73,10 +73,11 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     
-    try {
-        client.update();
+    if(bConnected) {
+        
+        ofLogNotice("update mqtt") << "";
 
-    } catch (...) {
+        client.update();
         ofLogNotice("Error updating") << "";
 
     }

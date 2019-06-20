@@ -105,11 +105,43 @@ void ofApp::draw(){
     fbo.readToPixels(screenPixels);
     screenImg.setFromPixels(screenPixels);
     
+    switch (raspiId) {
+        case 0:
+            screenImg.crop(ofGetWidth() / 3 * 0, ofGetHeight() / 3*0, ofGetWidth() / 3 *1, ofGetHeight() / 3*1);
+            break;
+        case 1:
+            screenImg.crop(ofGetWidth() / 3 * 1, ofGetHeight() / 3*0, ofGetWidth() / 3 *2, ofGetHeight() / 3*1);
+            break;
+        case 2:
+            screenImg.crop(ofGetWidth() / 3 * 2, ofGetHeight() / 3*0, ofGetWidth() / 3 *3, ofGetHeight() / 3*1);
+            break;
+        case 3:
+            screenImg.crop(ofGetWidth() / 3 * 0, ofGetHeight() / 3*1, ofGetWidth() / 3 *1, ofGetHeight() / 3*2);
+            break;
+        case 4:
+            screenImg.crop(ofGetWidth() / 3 * 1, ofGetHeight() / 3*1, ofGetWidth() / 3 *2, ofGetHeight() / 3*2);
+            break;
+        case 5:
+            screenImg.crop(ofGetWidth() / 3 * 2, ofGetHeight() / 3*1, ofGetWidth() / 3 *3, ofGetHeight() / 3*2);
+            break;
+        case 6:
+            screenImg.crop(ofGetWidth() / 3 * 0, ofGetHeight() / 3*2, ofGetWidth() / 3 *1, ofGetHeight() / 3*3);
+            break;
+        case 7:
+            screenImg.crop(ofGetWidth() / 3 * 1, ofGetHeight() / 3*2, ofGetWidth() / 3 *2, ofGetHeight() / 3*3);
+            break;
+        case 8:
+            screenImg.crop(ofGetWidth() / 3 * 2, ofGetHeight() / 3*2, ofGetWidth() / 3 *3, ofGetHeight() / 3*3);
+            break;
+
+        default:
+            break;
     
-    screenImg.crop(0.0, 0.0, ofGetWidth() / 3, ofGetHeight()/3);
+    }
     
     
     screenImg.draw(0.0,0.0, ofGetWidth(), ofGetHeight());
+    
     
     if(cameraManager.currentDrawnCamera) {
         

@@ -18,6 +18,12 @@ void ofApp::setup(){
     raspiId = configJson.value("raspi-id", 0);
     
     ofLogNotice("setup") << "json parsed";
+    
+    
+    ofLogNotice("setup") << "loading cameras";
+
+    cameraManager.loadCameras();
+    cameraManager.setup();
 
     ofAddListener(client.onOnline, this, &ofApp::onOnline);
     ofAddListener(client.onOffline, this, &ofApp::onOffline);
@@ -35,10 +41,8 @@ void ofApp::setup(){
     }
     
    
-    ofLogNotice("setup") << "loading cameras";
 
-    cameraManager.loadCameras();
-    cameraManager.setup();
+   
     
     showAnalysis = true;
     
@@ -70,13 +74,6 @@ void ofApp::setup(){
 void ofApp::update(){
     
     client.update();
-    
-    if(ofGetFrameNum() % 500 == 0) {
-       
-        ofLoadURLAsync(mainConfigUrl, "config-req");
-
-    }
-    
     cameraManager.update();
     
     

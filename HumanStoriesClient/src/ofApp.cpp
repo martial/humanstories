@@ -25,9 +25,7 @@ void ofApp::setup(){
     cameraManager.loadCameras();
     cameraManager.setup();
 
-    ofAddListener(client.onOnline, this, &ofApp::onOnline);
-    ofAddListener(client.onOffline, this, &ofApp::onOffline);
-    ofAddListener(client.onMessage, this, &ofApp::onMessage);
+    
     
     client.begin(serverIp, mqttPort);
     bool b = client.connect("humanstories-raspi-"+ofToString(raspiId));
@@ -37,7 +35,9 @@ void ofApp::setup(){
         
     }
     
-   
+    ofAddListener(client.onOnline, this, &ofApp::onOnline);
+    ofAddListener(client.onOffline, this, &ofApp::onOffline);
+    ofAddListener(client.onMessage, this, &ofApp::onMessage);
 
    
     
@@ -72,8 +72,6 @@ void ofApp::update(){
     
     if(bConnected) {
         
-        ofLogNotice("update mqtt") << "";
-
         client.update();
 
     }

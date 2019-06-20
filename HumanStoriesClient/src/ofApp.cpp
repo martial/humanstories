@@ -73,7 +73,7 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     
-    client.update();
+    //client.update();
     cameraManager.update();
     
     
@@ -189,8 +189,8 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 void ofApp::onOnline(){
     ofLogNotice("MQTT") << "Online and suscribing";
     
-    client.subscribe("event");
-    client.subscribe("event-processed");
+    //client.subscribe("event");
+    //client.subscribe("event-processed");
 
 }
 //--------------------------------------------------------------

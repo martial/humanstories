@@ -3,3 +3,6 @@ HumanStoriesClient/bin/HumanStoriesClient
 HumanStoriesClient/bin/HumanStoriesClient.app/*
 HumanStoriesServer/bin/HumanStoriesServer/*
 HumanStoriesServer/bin/data/temp/*
+HumanStoriesServer/bin/data/geoloc/*
+HumanStoriesServer/bin/data/result.json
+HumanStoriesServer/bin/data/temp.jpg

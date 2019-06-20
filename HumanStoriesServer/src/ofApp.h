@@ -28,6 +28,9 @@ class ofApp : public ofBaseApp{
         void sendImgToOsc(string id);
 
         ofxMQTT client;
+        void onOnline();
+        void onOffline();
+        void onMessage(ofxMQTTMessage &msg);
 
         ofxOscReceiver oscDarknet;
         ofxOscSender senderDarknet;
@@ -37,5 +40,8 @@ class ofApp : public ofBaseApp{
         bool showAnalysis;
         string sentId;
     
+        vector<string> macAdresses;
+        int numOfClients;
+        int currentAnalysed;
 
 };

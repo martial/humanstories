@@ -11,8 +11,14 @@ void ofApp::setup(){
     oscDarknet.setup(3333);
     senderDarknet.setup("localhost", 3334);
 
+    ofAddListener(client.onOnline, this, &ofApp::onOnline);
+    ofAddListener(client.onOffline, this, &ofApp::onOffline);
+    ofAddListener(client.onMessage, this, &ofApp::onMessage);
     client.begin("localhost", 1883);
     client.connect("humanstories-server", "try", "try");
+    
+    numOfClients = 9;
+    currentAnalysed = 0;
 }
 
 //--------------------------------------------------------------
@@ -86,8 +92,16 @@ void ofApp::update(){
             
             r.getDetectedAsImages();
             cameraManager.analyseNextCamera(true);
-            client.publish("event-processed", ofToString(id));
+            
+            //client.publish("event-processed", ofToString(id));
+            
+            string str = ofToString(currentAnalysed) + "/" + ofToString(id);
+            client.publish("event-processed-id", str);
 
+            
+            currentAnalysed++;
+            if(currentAnalysed >= numOfClients - 1)
+                currentAnalysed = 0;
             
         }
         
@@ -179,6 +193,8 @@ void ofApp::sendImgToOsc(string id) {
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     
+   
+    
     if(key == 't')
         client.publish("event-processed", "key");
     
@@ -238,4 +254,33 @@ void ofApp::gotMessage(ofMessage msg){
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){ 
 
+}
+
+//--------------------------------------------------------------
+
+void ofApp::onOnline(){
+    ofLogNotice("MQTT") << "Online and sending ids";
+    
+    for(int i=0; i<macAdresses.size(); i++) {
+        
+        string str = ofToString(i) + "=" + macAdresses[i];
+        client.publish("id", str);
+
+        
+    }
+  
+    
+}
+//--------------------------------------------------------------
+
+void ofApp::onOffline(){
+    ofLog() << "offline";
+    
+}
+//--------------------------------------------------------------
+
+void ofApp::onMessage(ofxMQTTMessage &msg){
+    
+   
+    
 }

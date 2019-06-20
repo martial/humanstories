@@ -51,7 +51,9 @@ void ofApp::setup(){
         
         client.subscribe("event");
         client.subscribe("event-processed");
-        
+        client.subscribe("event-processed-id");
+        client.subscribe("id");
+
     }
     
   
@@ -112,6 +114,13 @@ void ofApp::draw(){
         
         ofSetColor(255,0,0);
         ofDrawBitmapString(macAdress, 20, 40);
+        
+    }
+    
+    if(currentMode == "id") {
+        
+        ofSetColor(255,0,0);
+        ofDrawBitmapString(raspiId, 20, 40);
         
     }
     
@@ -221,9 +230,37 @@ void ofApp::onMessage(ofxMQTTMessage &msg){
         cameraManager.analyseNextCamera(ofToInt(msg.payload), false);
     }
     
+    if(msg.topic == "event-processed-id" && msg.payload != "") {
+        
+        vector<string> splitted = ofSplitString(msg.payload, "/");
+        int rId     = ofToInt(splitted[0]);
+        int camId   = ofToInt(splitted[1]);
+        
+        ofLogNotice("event-processed-id") << rId << " - " << camId;
+
+        
+        if(rId == raspiId)
+            cameraManager.analyseNextCamera(camId, false);
+    }
+    
     if(msg.topic == "mode") {
         
         currentMode = msg.payload;
+    }
+    
+    if(msg.topic == "id") {
+        
+        ofLogNotice("get id") << msg.payload;
+
+        vector<string> splitted = ofSplitString(msg.payload, "=");
+        int id= ofToInt(splitted[0]);
+        string address= splitted[1];
+        
+        if(address == macAdress) {
+            raspiId = id;
+            ofLogNotice("set raspi id as") << raspiId;
+
+        }
     }
     
 }

@@ -30,14 +30,11 @@ void ofApp::setup(){
     ofAddListener(client.onMessage, this, &ofApp::onMessage);
     
     client.begin(serverIp, mqttPort);
-    bConnected = client.connect("humanstories-raspi-"+ofToString(raspiId));
+    bool b = client.connect("humanstories-raspi-"+ofToString(raspiId));
     
-    if(bConnected) {
+    if(b) {
         ofLogNotice("MQTT") << "seems connected";
-        client.subscribe("mode");
-
-        client.subscribe("event");
-        client.subscribe("event-processed");
+        
     }
     
    
@@ -194,7 +191,12 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 
 void ofApp::onOnline(){
     ofLogNotice("MQTT") << "Online and suscribing";
+    client.subscribe("mode");
     
+    client.subscribe("event");
+    client.subscribe("event-processed");
+    
+    bConnected = true;
     //client.subscribe("event");
     //client.subscribe("event-processed");
 
@@ -203,6 +205,8 @@ void ofApp::onOnline(){
 
 void ofApp::onOffline(){
     ofLog() << "offline";
+    bConnected = false;
+
 }
 //--------------------------------------------------------------
 

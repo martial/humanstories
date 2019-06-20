@@ -35,10 +35,17 @@ void ofApp::update(){
             vector<string> splittedWords = ofSplitString(splitedMsg[1], ",", true);
             
             bool bHasPeople = false;
+            ofJson categoriesJson;
             for(int i=0; i<splittedWords.size(); i++) {
                 
                 vector<string> splittedCat = ofSplitString(splittedWords[i], "/");
                 r.objects.push_back(splittedCat[0]);
+                
+                categoriesJson.push_back(splittedCat[0]);
+                
+                cameraManager.analysisJson["cameras"][ofToInt(id)]["categories"].push_back(categoriesJson);
+
+                
                 ofLogNotice("category") << splittedCat[0];
 
                 if(splittedCat[0] == "person")
@@ -82,6 +89,8 @@ void ofApp::update(){
             
         }
         
+        cameraManager.analysisJson["cameras"][ofToInt(id)]["status"] = "Processed";
+        ofSaveJson("result.json", cameraManager.analysisJson);
         r.bHasCheckedObjects = true;
         
         

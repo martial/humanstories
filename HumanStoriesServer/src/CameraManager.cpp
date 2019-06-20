@@ -13,6 +13,9 @@ void CameraManager::loadCameras() {
   
     ofLog(OF_LOG_NOTICE, "---------------Loading Streams---------------");
     
+    analysisJson = ofLoadJson("result.json");
+
+    
     vector < string > linesOfTheFile;
     ofBuffer buffer = ofBufferFromFile("urls.txt");
     
@@ -45,6 +48,14 @@ void CameraManager::loadCameras() {
         
         
         
+        ofJson camJson;
+    
+        camJson["id"] = i;
+        camJson["url"] = line;
+        camJson["status"] = "unknown";
+        
+
+        analysisJson["cameras"].push_back(camJson);
 
       
         
@@ -95,6 +106,8 @@ void CameraManager::loadCameras() {
     }
         ofLogNotice("ipcams size ") << ipcams.size();
     nextCamera = ipcams.size();
+    
+    ofSaveJson("result.json", analysisJson);
 }
 
 

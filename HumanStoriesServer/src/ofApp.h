@@ -36,5 +36,6 @@ class ofApp : public ofBaseApp{
         Analyzer analyzer;
         bool showAnalysis;
         string sentId;
+    
 
 };

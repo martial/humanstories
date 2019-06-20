@@ -104,7 +104,8 @@ public:
 
     std::vector<std::shared_ptr<Video::IPVideoGrabber>> grabbers;
 
-    
+    ofJson analysisJson;
+
 private:
     
     int NUM_CAMERAS;

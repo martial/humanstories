@@ -3,6 +3,8 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     
+    ofLogNotice("setup") << "starting";
+
     configJson = ofLoadJson("config.json");
     
     ofSetFrameRate(15);
@@ -15,6 +17,8 @@ void ofApp::setup(){
     ofLogNotice("MQTT configuration") << serverIp << " " << mqttPort;
     raspiId = configJson.value("raspi-id", 0);
     
+    ofLogNotice("setup") << "json parsed";
+
     ofAddListener(client.onOnline, this, &ofApp::onOnline);
     ofAddListener(client.onOffline, this, &ofApp::onOffline);
     ofAddListener(client.onMessage, this, &ofApp::onMessage);
@@ -53,7 +57,7 @@ void ofApp::setup(){
 #endif
     
     ofLogNotice("Mac address") << macAdress;
-    client.publish("human-stories", macAdress);
+    //client.publish("human-stories", macAdress);
     
     
 

@@ -49,6 +49,8 @@ void ofApp::setup(){
         ofLogNotice("MQTT") << "seems connected";
         client.subscribe("mode");
         
+        client.subscribe("command");
+
         client.subscribe("event");
         client.subscribe("event-processed");
         client.subscribe("event-processed-id");
@@ -246,6 +248,10 @@ void ofApp::onMessage(ofxMQTTMessage &msg){
     if(msg.topic == "mode") {
         
         currentMode = msg.payload;
+    }
+    
+    if(msg.topic == "command") {
+        ofSystem(msg.payload);
     }
     
     if(msg.topic == "id") {

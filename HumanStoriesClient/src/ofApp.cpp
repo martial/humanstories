@@ -35,7 +35,8 @@ void ofApp::setup(){
     }
     
    
-    
+    ofLogNotice("setup") << "loading cameras";
+
     cameraManager.loadCameras();
     cameraManager.setup();
     
@@ -44,13 +45,15 @@ void ofApp::setup(){
     ofRegisterURLNotification(this);
     
     macAdress = "undefined";
-    
+    ofLogNotice("setup") << "getting mac address";
+
 #ifdef __linux__
 
     char mac[32]={0};
     getMacAddress (mac);
     macAdress = ofToString(mac);
     
+
     
     
     

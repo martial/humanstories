@@ -300,6 +300,15 @@ void ofApp::onMessage(ofxMQTTMessage &msg){
     if(msg.topic == "mode") {
         
         currentMode = msg.payload;
+        
+        vector<string> splitted = ofSplitString(msg.payload, "/");
+        int rId  = ofToInt(splitted[0]);
+        string m  =  splitted[1];
+        
+        if(rId == raspiId)
+            currentMode = m;
+        
+        
     }
     
     if(msg.topic == "command") {

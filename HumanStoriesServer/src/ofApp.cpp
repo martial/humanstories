@@ -405,7 +405,11 @@ void ofApp::keyPressed(int key){
         
     }
     
-   
+    if(key == 'c'){
+        
+        layoutMode = CENTER_LAYOUT;
+        setLayout();
+    }
     
     if(key == ' ') {
         

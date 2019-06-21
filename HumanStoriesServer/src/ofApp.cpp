@@ -3,6 +3,8 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     
+    bAllBlack = false;
+    
     cameraManager.loadCameras();
     cameraManager.setup();
     
@@ -31,6 +33,7 @@ void ofApp::setup(){
     macAdresses.push_back("b8:27:eb:45:03:a7");
     
     hadPeople = false;
+    
 }
 
 //--------------------------------------------------------------
@@ -230,8 +233,24 @@ void ofApp::sendImgToOsc(string id) {
     
 }
 
+
+
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+    
+    
+    if(key == 'c') {
+        
+        vector<int> ips = cameraManager.getIdFromCategoryId(0);
+        std::random_shuffle(ips.begin(), ips.end());
+
+        for(int i=0; i<macAdresses.size(); i++) {
+            string str = ofToString(i) + "/" +  ofToString(ips[i]);
+            client.publish("event-processed-id", str);
+        }
+        //client.publish("command", "sudo reboot");
+        
+    }
     
     if(key == 'r')
         client.publish("command", "sudo reboot");
@@ -252,12 +271,14 @@ void ofApp::keyPressed(int key){
         
         int rdmId = floor(ofRandom(macAdresses.size()));
         
+        bAllBlack = !bAllBlack;
         for(int i=0; i<macAdresses.size(); i++) {
             
             float a = 0;
-            if(i == rdmId) {
+            if(bAllBlack) {
                 a = 255;
             }
+            
             
             string str = ofToString(i) + "/" + ofToString(a);
             client.publish("opacity", str);

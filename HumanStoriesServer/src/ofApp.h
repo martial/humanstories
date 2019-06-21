@@ -47,5 +47,8 @@ class ofApp : public ofBaseApp{
         bool hadPeople;
     
         void setLayout(string layout);
+        bool bAllBlack;
+    
+      
 
 };

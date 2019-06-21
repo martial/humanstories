@@ -95,6 +95,7 @@ public:
     
     std::shared_ptr<Video::IPVideoGrabber> analyzedGrabber, pastAnalyzedGrabber, currentDrawnCamera;
     void analyseNextCamera(bool bSkipOld = false);
+
     void updateCameras(bool bSkipOld = false);
 
     void loadCamerasById(vector<string> names);
@@ -105,6 +106,8 @@ public:
     std::vector<std::shared_ptr<Video::IPVideoGrabber>> grabbers;
 
     ofJson analysisJson;
+    vector<int> getIdFromCategoryId(int id);
+
 
 private:
     
@@ -125,6 +128,9 @@ private:
     string currentPrintedID;
     
     vector<string> currentNames;
+    
+    int currentCategory;
+    ofJson categoriesJson;
 
 };
 

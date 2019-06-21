@@ -77,6 +77,10 @@ void CameraManager::loadCameras() {
 
 void CameraManager::setup() {
     
+    currentCategory = 0;
+    categoriesJson = ofLoadJson("categories.json");
+
+    
     analyzedGrabber = NULL;
     pastAnalyzedGrabber = NULL;
     
@@ -313,12 +317,14 @@ void CameraManager::analyseNextCamera(bool bSkipOld) {
     if(analyzedGrabber && !bSkipOld)
         pastAnalyzedGrabber = analyzedGrabber;
     
-    int rdmIndex = floor(ofRandom(ipcams.size()));
-    IPCameraDef& cam = ipcams[rdmIndex];
-    ofLogNotice("choosing" ) << cam.getURL();
+    vector<int> categoryCam = getIdFromCategoryId(currentCategory);
+    int rdmIndex = floor(ofRandom(categoryCam.size()));
+    
+    IPCameraDef& cam = ipcams[categoryCam[rdmIndex]];
+    //ofLogNotice("choosing" ) << cam.getURL();
     while(cam.getURL() == "offline") {
-        rdmIndex = floor(ofRandom(ipcams.size()));
-        cam = ipcams[rdmIndex];
+        rdmIndex = floor(ofRandom(categoryCam.size()));
+        cam = ipcams[categoryCam[rdmIndex]];
     }
     currentAnalyzedCamera = rdmIndex;
 
@@ -348,4 +354,16 @@ void CameraManager::videoResized(const void* sender, ofResizeEventArgs& arg)
            //
         }
     }
+}
+
+vector<int> CameraManager::getIdFromCategoryId(int id) {
+    
+    
+    vector<int> result;
+    for(int i=0; i<categoriesJson[id]["ids"].size();i ++) {
+        result.push_back(categoriesJson[id]["ids"][i]);
+    }
+    
+    return result;
+    
 }

@@ -114,7 +114,7 @@ void ofApp::draw(){
         cameraManager.drawAnalyzed();
     
     if(opacity > 0 ) {
-        blackImg.draw(0.0,0.0);
+       // blackImg.draw(0.0,0.0);
     }
     
     fbo.end();
@@ -298,7 +298,8 @@ void ofApp::onMessage(ofxMQTTMessage &msg){
     }
     
     if(msg.topic == "opacity") {
-        opacity = ofToFloat(msg.payload);
+        
+        opacity = ofToInt(msg.payload);
         
         vector<string> splitted = ofSplitString(msg.payload, "/");
         int rId  = ofToInt(splitted[0]);

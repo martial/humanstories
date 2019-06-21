@@ -51,6 +51,14 @@ void ofApp::update(){
     int diff = ofGetElapsedTimeMillis() - timeElapsed;
     if(diff > 30000) {
         
+        for(int i=0; i<macAdresses.size(); i++) {
+            
+            string str = ofToString(i) + "=" + macAdresses[i];
+            client.publish("id", str);
+            ofLogNotice("send id") << str;
+            
+        }
+        
         int rdm = floor(ofRandom(4));
         
         setRandomCameras();

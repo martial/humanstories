@@ -49,6 +49,9 @@ void ofApp::setup(){
         ofLogNotice("MQTT") << "seems connected";
         client.subscribe("layout");
 
+        
+        client.subscribe("opacity");
+
         client.subscribe("mode");
         client.subscribe("command");
         client.subscribe("event");
@@ -71,6 +74,8 @@ void ofApp::setup(){
     //client.publish("human-stories", macAdress);
     
     currentLayout = "normal";
+    
+    opacity = 0;
 
 }
 
@@ -90,6 +95,8 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    
+    ofEnableAlphaBlending();
     
     ofBackground(0);
     
@@ -139,6 +146,9 @@ void ofApp::draw(){
         ofDrawBitmapString(raspiId, 20, 40);
         
     }
+    
+    ofSetColor(0, opacity);
+    ofDrawRectangle(0.0,0.0, ofGetWidth(), ofGetHeight());
     
 
 
@@ -275,6 +285,10 @@ void ofApp::onMessage(ofxMQTTMessage &msg){
     
     if(msg.topic == "command") {
         ofSystem(msg.payload);
+    }
+    
+    if(msg.topic == "opacity") {
+        opacity = ofToFloat(msg.payload);
     }
     
     if(msg.topic == "id") {

@@ -43,5 +43,7 @@ class ofApp : public ofBaseApp{
         vector<string> macAdresses;
         int numOfClients;
         int currentAnalysed;
+    
+        bool hadPeople;
 
 };

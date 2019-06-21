@@ -29,6 +29,8 @@ void ofApp::setup(){
     macAdresses.push_back("b8:27:eb:e5:74:74");
     macAdresses.push_back("b8:27:eb:dc:96:52");
     macAdresses.push_back("b8:27:eb:45:03:a7");
+    
+    hadPeople = false;
 }
 
 //--------------------------------------------------------------
@@ -93,7 +95,7 @@ void ofApp::update(){
                 
                 
             }
-            
+
             if(bHasPeople) {
                 
                 for(int i=0; i<macAdresses.size(); i++) {
@@ -104,16 +106,32 @@ void ofApp::update(){
                     client.publish("layout", str);
                 }
                 
+                
             } else {
+                
+                if(hadPeople) {
+                    
+                    for(int i=0; i<macAdresses.size(); i++) {
+                        string str = ofToString(i) + "/" + ofToString(id);
+                        client.publish("event-processed-id", str);
+                        
+                        str = ofToString(i) + "/normal";
+                        client.publish("layout", str);
+                    }
+                    
+                } else {
                 
                 string str = ofToString(currentAnalysed) + "/" +  ofToString(id);
                 client.publish("event-processed-id", str);
                 
                 str = ofToString(currentAnalysed) + "/normal";
                 client.publish("layout", str);
+                    
+                }
                 
             }
-            
+            hadPeople = bHasPeople;
+
             r.getDetectedAsImages();
             cameraManager.analyseNextCamera(true);
             

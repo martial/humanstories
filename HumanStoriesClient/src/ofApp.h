@@ -57,6 +57,8 @@ class ofApp : public ofBaseApp{
         ofPixels screenPixels;
         ofImage screenImg;
     
+        float opacity;
+    
 
 #ifdef __linux__
     

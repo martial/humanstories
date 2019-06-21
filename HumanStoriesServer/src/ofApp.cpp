@@ -373,14 +373,28 @@ void ofApp::keyPressed(int key){
     if(key == 't')
         client.publish("event-processed", "key");
     
-    if(key == 'm')
-        client.publish("mode", "macadress");
+    if(key == 'm') {
+        
+        for(int i=0; i<macAdresses.size(); i++) {
+            string str = ofToString(i) + "/macadress";
+            client.publish("mode", str);
+        }
+    }
     
-    if(key == 'l')
-        client.publish("mode", "live");
+    if(key == 'l') {
+        for(int i=0; i<macAdresses.size(); i++) {
+            string str = ofToString(i) + "/live";
+            client.publish("mode", str);
+        }
+    }
     
-    if(key == 'i')
-        client.publish("mode", "id");
+    
+    if(key == 'i') {
+        for(int i=0; i<macAdresses.size(); i++) {
+            string str = ofToString(i) + "/id";
+            client.publish("mode", str);
+        }
+    }
     
     if(key == 'o') {
         

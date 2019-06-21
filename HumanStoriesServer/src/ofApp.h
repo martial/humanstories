@@ -6,6 +6,16 @@
 #include "Analyzer.hpp"
 #include "ofxMQTT.h"
 
+#define RANDOM_SPLIT_MODE 0
+#define ALL_SPLIT_MODE 1
+#define ALL_CROPPED_MODE 2
+
+#define ALL_LAYOUT 0
+#define CENTER_LAYOUT 1
+#define TOP_LAYOUT 2
+#define BOTTOM_LAYOUT 3
+
+
 class ofApp : public ofBaseApp{
 
 	public:
@@ -46,9 +56,18 @@ class ofApp : public ofBaseApp{
     
         bool hadPeople;
     
-        void setLayout(string layout);
         bool bAllBlack;
     
-      
+        int mode;
+        int layoutMode;
+    
+        void setRandomCameras();
+        void setRandomCameras(int id);
+
+        void setAllSameCamera();
+        void setLayout();
+        int currentCategory;
+    
+        int timeElapsed;
 
 };

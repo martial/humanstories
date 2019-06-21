@@ -107,6 +107,8 @@ public:
 
     ofJson analysisJson;
     vector<int> getIdFromCategoryId(int id);
+    ofJson categoriesJson;
+    int currentCategory;
 
 
 private:
@@ -129,8 +131,6 @@ private:
     
     vector<string> currentNames;
     
-    int currentCategory;
-    ofJson categoriesJson;
 
 };
 

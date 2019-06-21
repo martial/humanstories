@@ -61,6 +61,7 @@ void CameraManager::loadCameras() {
         
         if(offlineJson["cameras"][i].value("status", "") == "offline" ) {
             def.setURL("offline");
+            ofLogNotice("setting offline ") << i;
         }
         
 
@@ -321,16 +322,18 @@ void CameraManager::analyseNextCamera(bool bSkipOld) {
     int rdmIndex = floor(ofRandom(categoryCam.size()));
     
     IPCameraDef& cam = ipcams[categoryCam[rdmIndex]];
-    //ofLogNotice("choosing" ) << cam.getURL();
+    /*
     while(cam.getURL() == "offline") {
         rdmIndex = floor(ofRandom(categoryCam.size()));
         cam = ipcams[categoryCam[rdmIndex]];
     }
-    currentAnalyzedCamera = rdmIndex;
+     $*/
+    ofLogNotice("choosing" ) << cam.getURL() << " - " << categoryCam[rdmIndex] << " - " << currentCategory;
+
+    currentAnalyzedCamera = categoryCam[rdmIndex];
 
     
     auto c = std::make_shared<Video::IPVideoGrabber>();
-    cam = ipcams[currentAnalyzedCamera];
     c->setUsername(cam.getUsername());
     c->setPassword(cam.getPassword());
     c->setCameraName(ofToString(currentAnalyzedCamera));

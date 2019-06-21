@@ -34,10 +34,44 @@ void ofApp::setup(){
     
     hadPeople = false;
     
+    mode = RANDOM_SPLIT_MODE;
+    
+    timeElapsed = ofGetElapsedTimeMillis();
+    
+    int rdm = floor(ofRandom(cameraManager.categoriesJson.size()));
+    currentCategory = rdm;
+    
+    ofLogNotice("setup") << cameraManager.categoriesJson.size() << " - " << rdm;
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    
+    int diff = ofGetElapsedTimeMillis() - timeElapsed;
+    if(diff > 60000) {
+        
+        int rdm = floor(ofRandom(2));
+        
+        if (rdm == 0) {
+            layoutMode = CENTER_LAYOUT;
+            setLayout();
+            
+            
+        }
+        
+        if (rdm == 1) {
+            layoutMode = ALL_LAYOUT;
+            setLayout();
+          
+            
+        }
+        
+        ofLogNotice("change layout") << rdm;
+        timeElapsed = ofGetElapsedTimeMillis();
+
+        
+    }
     
     client.update();
     
@@ -67,7 +101,6 @@ void ofApp::update(){
                 categoriesJson.push_back(splittedCat[0]);
                 
                 cameraManager.analysisJson["cameras"][ofToInt(id)]["categories"].push_back(categoriesJson);
-
                 
                 ofLogNotice("category") << splittedCat[0];
 
@@ -98,53 +131,103 @@ void ofApp::update(){
                 
                 
             }
+            
+            if(mode == RANDOM_SPLIT_MODE) {
 
-            if(bHasPeople) {
-                
-                for(int i=0; i<macAdresses.size(); i++) {
-                    string str = ofToString(i) + "/" + ofToString(id);
-                    client.publish("event-processed-id", str);
+                if(bHasPeople) {
                     
-                    str = ofToString(i) + "/split";
-                    client.publish("layout", str);
-                }
-                
-                
-            } else {
-                
-                if(hadPeople) {
+                    timeElapsed = ofGetElapsedTimeMillis();
+
                     
-                    for(int i=0; i<macAdresses.size(); i++) {
-                        string str = ofToString(i) + "/" + ofToString(id);
-                        client.publish("event-processed-id", str);
+                    int rdm = floor(ofRandom(3));
+                    
+                    if (rdm == 0) {
+                        layoutMode = CENTER_LAYOUT;
+                        setLayout();
+                        for(int i=0; i<macAdresses.size(); i++) {
+                            string str = ofToString(i) + "/" + ofToString(id);
+                            client.publish("event-processed-id", str);
+                            
+                        }
                         
-                        str = ofToString(i) + "/normal";
-                        client.publish("layout", str);
                     }
                     
+                    if (rdm == 1) {
+                        layoutMode = ALL_LAYOUT;
+                        setLayout();
+                        for(int i=0; i<macAdresses.size(); i++) {
+                            string str = ofToString(i) + "/" + ofToString(id);
+                            client.publish("event-processed-id", str);
+                            
+                        }
+                        
+                    }
+                    
+                    if (rdm == 2) {
+                        layoutMode = ALL_LAYOUT;
+                        setLayout();
+                        for(int i=0; i<macAdresses.size(); i++) {
+                            string str = ofToString(i) + "/" + ofToString(id);
+                            client.publish("event-processed-id", str);
+                            
+                        }
+                        
+                    }
+
+                    
+                    
                 } else {
-                
-                string str = ofToString(currentAnalysed) + "/" +  ofToString(id);
-                client.publish("event-processed-id", str);
-                
-                str = ofToString(currentAnalysed) + "/normal";
-                client.publish("layout", str);
+                    
+                    if(hadPeople) {
+                        
+                        int rdm = floor(ofRandom(cameraManager.categoriesJson.size()));
+                        currentCategory = rdm;
+                        
+                        layoutMode = ALL_LAYOUT;
+                        setLayout();
+                        setRandomCameras();
+                       
+                        
+                    } else {
+                    
+                   
+                        
+                    //string str = ofToString(currentAnalysed) + "/" +  ofToString(id);
+                    //client.publish("event-processed-id", str);
+                    //layoutMode = ALL_LAYOUT;
+                    //setLayout();
+                    setRandomCameras(currentAnalysed);
+                    
+                    string str = ofToString(currentAnalysed) + "/normal";
+                    client.publish("layout", str);
+                        
+                    }
                     
                 }
+                hadPeople = bHasPeople;
                 
             }
-            hadPeople = bHasPeople;
 
             r.getDetectedAsImages();
+            
+            cameraManager.currentCategory = currentCategory;
             cameraManager.analyseNextCamera(true);
+            
+            ofLogNotice("check next camera") << currentCategory;
             
             //client.publish("event-processed", ofToString(id));
             
 
             
             currentAnalysed++;
-            if(currentAnalysed >= numOfClients)
+            if(currentAnalysed >= numOfClients) {
                 currentAnalysed = 0;
+                
+                int rdm = floor(ofRandom(cameraManager.categoriesJson.size()));
+                currentCategory = rdm;
+                
+                
+            }
             
         }
         
@@ -206,6 +289,37 @@ void ofApp::update(){
 
 }
 
+void ofApp::setRandomCameras() {
+    
+    vector<int> ips = cameraManager.getIdFromCategoryId(currentCategory);
+    std::random_shuffle(ips.begin(), ips.end());
+    
+    for(int i=0; i<macAdresses.size(); i++) {
+        string str = ofToString(i) + "/" +  ofToString(ips[i]);
+        client.publish("event-processed-id", str);
+    }
+    
+}
+
+void ofApp::setRandomCameras(int id) {
+    
+   
+    vector<int> ips = cameraManager.getIdFromCategoryId(currentCategory);
+    std::random_shuffle(ips.begin(), ips.end());
+    
+    string str = ofToString(id) + "/" +  ofToString(ips[0]);
+    client.publish("event-processed-id", str);
+    
+    
+    
+}
+
+void ofApp::setAllSameCamera() {
+    
+}
+
+
+
 //--------------------------------------------------------------
 void ofApp::draw(){
     
@@ -241,7 +355,7 @@ void ofApp::keyPressed(int key){
     
     if(key == 'c') {
         
-        vector<int> ips = cameraManager.getIdFromCategoryId(10);
+        vector<int> ips = cameraManager.getIdFromCategoryId(1);
         std::random_shuffle(ips.begin(), ips.end());
 
         for(int i=0; i<macAdresses.size(); i++) {
@@ -269,19 +383,22 @@ void ofApp::keyPressed(int key){
     
     if(key == 'o') {
         
-        int rdmId = floor(ofRandom(macAdresses.size()));
-        
         bAllBlack = !bAllBlack;
         for(int i=0; i<macAdresses.size(); i++) {
             
             float a = 0;
             if(bAllBlack) {
-                a = 255;
+               
+                string str = ofToString(i) + "/off";
+                client.publish("layout", str);
+                
+            } else {
+                string str = ofToString(i) + "/normal";
+                client.publish("layout", str);
             }
             
             
-            string str = ofToString(i) + "/" + ofToString(a);
-            client.publish("opacity", str);
+           
                         
         }
         
@@ -304,8 +421,61 @@ void ofApp::keyPressed(int key){
     
 }
 
-void ofApp::setLayout(string layout) {
+void ofApp::setLayout() {
     
+    if(layoutMode == ALL_LAYOUT) {
+        
+        for(int i=0; i<macAdresses.size(); i++) {
+            string str = ofToString(i) + "/normal";
+            client.publish("mode", str);
+        }
+        
+    }
+    
+    if(layoutMode == CENTER_LAYOUT) {
+        
+        for(int i=0; i<macAdresses.size(); i++) {
+            
+            if(i!=4) {
+                string str = ofToString(i) + "/off";
+                client.publish("mode", str);
+            } else {
+                string str = ofToString(i) + "/normal";
+                client.publish("mode", str);
+            }
+        }
+        
+    }
+    
+    if(layoutMode == TOP_LAYOUT) {
+        
+        for(int i=0; i<macAdresses.size(); i++) {
+            
+            if(i<3) {
+                string str = ofToString(i) + "/off";
+                client.publish("mode", str);
+            } else {
+                string str = ofToString(i) + "/normal";
+                client.publish("mode", str);
+            }
+        }
+        
+    }
+    
+    if(layoutMode == BOTTOM_LAYOUT) {
+        
+        for(int i=0; i<macAdresses.size(); i++) {
+            
+            if(i>5) {
+                string str = ofToString(i) + "/off";
+                client.publish("mode", str);
+            } else {
+                string str = ofToString(i) + "/normal";
+                client.publish("mode", str);
+            }
+        }
+        
+    }
     
 }
 

@@ -105,7 +105,7 @@ void ofApp::draw(){
     ofSetColor(255);
     blackImg.draw(0.0,0.0);
     
-    if (currentLayout == "off") {
+    if (currentMode == "off") {
         return;
     }
 

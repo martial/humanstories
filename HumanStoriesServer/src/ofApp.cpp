@@ -51,22 +51,24 @@ void ofApp::update(){
     int diff = ofGetElapsedTimeMillis() - timeElapsed;
     if(diff > 30000) {
         
-        int rdm = floor(ofRandom(2));
+        int rdm = floor(ofRandom(4));
         
         setRandomCameras();
         if (rdm == 0) {
+            currentCategory = 10;
             layoutMode = CENTER_LAYOUT;
             setLayout();
             
             
-        }
-        
-        if (rdm == 1) {
-            layoutMode = ALL_LAYOUT;
-            setLayout();
-          
+        } else {
+                layoutMode = ALL_LAYOUT;
+                setLayout();
+                
+                
             
         }
+        
+        
         
         ofLogNotice("change layout") << rdm;
         timeElapsed = ofGetElapsedTimeMillis();
@@ -419,7 +421,7 @@ void ofApp::keyPressed(int key){
         
     }
     
-    if(key == 'c'){
+    if(key == 'a'){
         
         layoutMode = CENTER_LAYOUT;
         setLayout();
@@ -446,7 +448,7 @@ void ofApp::setLayout() {
         
         for(int i=0; i<macAdresses.size(); i++) {
             string str = ofToString(i) + "/normal";
-            client.publish("mode", str);
+            client.publish("layout", str);
         }
         
     }
@@ -457,10 +459,10 @@ void ofApp::setLayout() {
             
             if(i!=4) {
                 string str = ofToString(i) + "/off";
-                client.publish("mode", str);
+                client.publish("layout", str);
             } else {
                 string str = ofToString(i) + "/normal";
-                client.publish("mode", str);
+                client.publish("layout", str);
             }
         }
         
@@ -472,10 +474,10 @@ void ofApp::setLayout() {
             
             if(i<3) {
                 string str = ofToString(i) + "/off";
-                client.publish("mode", str);
+                client.publish("layout", str);
             } else {
                 string str = ofToString(i) + "/normal";
-                client.publish("mode", str);
+                client.publish("molayoutde", str);
             }
         }
         
@@ -487,10 +489,10 @@ void ofApp::setLayout() {
             
             if(i>5) {
                 string str = ofToString(i) + "/off";
-                client.publish("mode", str);
+                client.publish("layout", str);
             } else {
                 string str = ofToString(i) + "/normal";
-                client.publish("mode", str);
+                client.publish("layout", str);
             }
         }
         

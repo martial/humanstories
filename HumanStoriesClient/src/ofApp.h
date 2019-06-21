@@ -58,6 +58,7 @@ class ofApp : public ofBaseApp{
         ofImage screenImg;
     
         float opacity;
+        ofImage blackImg;
     
 
 #ifdef __linux__

@@ -25,12 +25,7 @@ void CameraManager::loadCameras() {
         
         string s = offlineJson["cameras"][i].value("status", "");
         
-        ofLogNotice("status") << s << " " << i;
-        if(offlineJson["cameras"][i].value("status", "") == "offline" ) {
-            i++;
-
-            continue;
-        }
+        
         
         std::string tag = "stream";
         
@@ -64,9 +59,13 @@ void CameraManager::loadCameras() {
         camJson["url"] = line;
         camJson["status"] = "unknown";
         
+        if(offlineJson["cameras"][i].value("status", "") == "offline" ) {
+            def.setURL("offline");
+        }
+        
 
         analysisJson["cameras"].push_back(camJson);
-         ipcams.push_back(def);
+        ipcams.push_back(def);
         i++;
     }
     ofLogNotice("ipcams size ") << ipcams.size();
@@ -314,11 +313,18 @@ void CameraManager::analyseNextCamera(bool bSkipOld) {
     if(analyzedGrabber && !bSkipOld)
         pastAnalyzedGrabber = analyzedGrabber;
     
-    currentAnalyzedCamera = floor(ofRandom(ipcams.size()));
+    int rdmIndex = floor(ofRandom(ipcams.size()));
+    IPCameraDef& cam = ipcams[rdmIndex];
+    ofLogNotice("choosing" ) << cam.getURL();
+    while(cam.getURL() == "offline") {
+        rdmIndex = floor(ofRandom(ipcams.size()));
+        cam = ipcams[rdmIndex];
+    }
+    currentAnalyzedCamera = rdmIndex;
 
     
     auto c = std::make_shared<Video::IPVideoGrabber>();
-    IPCameraDef& cam = ipcams[currentAnalyzedCamera];
+    cam = ipcams[currentAnalyzedCamera];
     c->setUsername(cam.getUsername());
     c->setPassword(cam.getPassword());
     c->setCameraName(ofToString(currentAnalyzedCamera));

@@ -76,6 +76,7 @@ void ofApp::setup(){
     currentLayout = "normal";
     
     opacity = 0;
+    blackImg.load("black.jpg");
 
 }
 
@@ -106,13 +107,16 @@ void ofApp::draw(){
     fbo.begin();
     ofClear(0,255);
     ofEnableAlphaBlending();
+    blackImg.draw(0.0,0.0);
     if(!showAnalysis)
         cameraManager.drawResult();
     else
         cameraManager.drawAnalyzed();
     
-    ofSetColor(0, opacity);
-    ofDrawRectangle(0.0,0.0, ofGetWidth(), ofGetHeight());
+    if(opacity > 0 ) {
+        blackImg.draw(0.0,0.0);
+    }
+    
     fbo.end();
     
     fbo.readToPixels(screenPixels);

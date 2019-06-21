@@ -283,6 +283,12 @@ void ofApp::keyPressed(int key){
     
 }
 
+void ofApp::setLayout(string layout) {
+    
+    
+}
+
+
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
 

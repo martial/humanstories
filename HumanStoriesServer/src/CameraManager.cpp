@@ -14,13 +14,23 @@ void CameraManager::loadCameras() {
     ofLog(OF_LOG_NOTICE, "---------------Loading Streams---------------");
     
     analysisJson = ofLoadJson("result.json");
-
+    
+    ofJson offlineJson = ofLoadJson("result_with_offline.json");
     
     vector < string > linesOfTheFile;
     ofBuffer buffer = ofBufferFromFile("urls.txt");
     
     int i=0;
     for (auto line : buffer.getLines()){
+        
+        string s = offlineJson["cameras"][i].value("status", "");
+        
+        ofLogNotice("status") << s << " " << i;
+        if(offlineJson["cameras"][i].value("status", "") == "offline" ) {
+            i++;
+
+            continue;
+        }
         
         std::string tag = "stream";
         
@@ -56,9 +66,8 @@ void CameraManager::loadCameras() {
         
 
         analysisJson["cameras"].push_back(camJson);
-
-      
          ipcams.push_back(def);
+        i++;
     }
     ofLogNotice("ipcams size ") << ipcams.size();
     nextCamera = ipcams.size();

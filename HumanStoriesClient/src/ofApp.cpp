@@ -105,10 +105,14 @@ void ofApp::draw(){
 
     fbo.begin();
     ofClear(0,255);
+    ofEnableAlphaBlending();
     if(!showAnalysis)
         cameraManager.drawResult();
     else
         cameraManager.drawAnalyzed();
+    
+    ofSetColor(0, opacity);
+    ofDrawRectangle(0.0,0.0, ofGetWidth(), ofGetHeight());
     fbo.end();
     
     fbo.readToPixels(screenPixels);
@@ -147,8 +151,7 @@ void ofApp::draw(){
         
     }
     
-    ofSetColor(0, opacity);
-    ofDrawRectangle(0.0,0.0, ofGetWidth(), ofGetHeight());
+   
     
 
 

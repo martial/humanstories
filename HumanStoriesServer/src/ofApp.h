@@ -45,5 +45,7 @@ class ofApp : public ofBaseApp{
         int currentAnalysed;
     
         bool hadPeople;
+    
+        void setLayout(string layout);
 
 };

@@ -248,6 +248,24 @@ void ofApp::keyPressed(int key){
     if(key == 'i')
         client.publish("mode", "id");
     
+    if(key == 'o') {
+        
+        int rdmId = floor(ofRandom(macAdresses.size()));
+        
+        for(int i=0; i<macAdresses.size(); i++) {
+            
+            float a = 0;
+            if(i == rdmId) {
+                a = 255;
+            }
+            
+            string str = ofToString(i) + "/" + ofToString(a);
+            client.publish("opacity", str);
+                        
+        }
+        
+    }
+    
    
     
     if(key == ' ') {

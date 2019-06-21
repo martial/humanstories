@@ -294,11 +294,14 @@ void ofApp::onMessage(ofxMQTTMessage &msg){
         opacity = ofToFloat(msg.payload);
         
         vector<string> splitted = ofSplitString(msg.payload, "/");
-        int rId     = ofToInt(splitted[0]);
+        int rId  = ofToInt(splitted[0]);
         float a  =  ofToFloat(splitted[1]);
         
         if(rId == raspiId)
             opacity = a;
+        
+        ofLogNotice("set opacity") << rId << " - " << a;
+
         
     }
     

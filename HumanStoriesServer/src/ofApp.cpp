@@ -49,10 +49,11 @@ void ofApp::setup(){
 void ofApp::update(){
     
     int diff = ofGetElapsedTimeMillis() - timeElapsed;
-    if(diff > 60000) {
+    if(diff > 30000) {
         
         int rdm = floor(ofRandom(2));
         
+        setRandomCameras();
         if (rdm == 0) {
             layoutMode = CENTER_LAYOUT;
             setLayout();
@@ -213,7 +214,7 @@ void ofApp::update(){
             cameraManager.currentCategory = currentCategory;
             cameraManager.analyseNextCamera(true);
             
-            ofLogNotice("check next camera") << currentCategory;
+           // ofLogNotice("check next camera") << currentCategory;
             
             //client.publish("event-processed", ofToString(id));
             

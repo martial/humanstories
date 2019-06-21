@@ -241,7 +241,7 @@ void ofApp::keyPressed(int key){
     
     if(key == 'c') {
         
-        vector<int> ips = cameraManager.getIdFromCategoryId(0);
+        vector<int> ips = cameraManager.getIdFromCategoryId(10);
         std::random_shuffle(ips.begin(), ips.end());
 
         for(int i=0; i<macAdresses.size(); i++) {

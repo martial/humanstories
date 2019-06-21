@@ -58,53 +58,9 @@ void CameraManager::loadCameras() {
         analysisJson["cameras"].push_back(camJson);
 
       
-        
-
-        /*
-        Poco::URI uri1(line);
-        string host = uri1.getHost();
-        
-        ofLogNotice("cehck ip: ") << host;
-
-        ofHttpResponse resp = ofLoadURL("http://geoip.nekudo.com/api/"+host);
-        ofLogNotice("data: ") << resp.data;
-
-        ofFile myTextFile;
-        myTextFile.open("geoloc/"+ ofToString(i)+".json",ofFile::WriteOnly);
-        myTextFile << resp.data;
-        myTextFile.close();
-        
-        //ofxXmlSettings xml;
-        //xml.loadFromBuffer(resp.data);
-        //xml.save("geoloc/"+ ofToString(i)+".xml");
-        ofLogNotice("saved: ");;
-        
-        
-        bool bAddCam = false;
-        
-        ofxJSONElement result;
-        result.openLocal("geoloc/"+ ofToString(i)+".json");
-        string city = result["city"].asString();
-        
-        
-        ofxJSONElement countryJson;
-        
-        if (!result["country"].isNull()) {
-            
-            countryJson = result["country"];
-            string country = countryJson["name"].asString();
-            
-            if(country == "France" )
-                bAddCam = true;
-        }
-
-        i++;
-            
-        if(bAddCam)
-          */
          ipcams.push_back(def);
     }
-        ofLogNotice("ipcams size ") << ipcams.size();
+    ofLogNotice("ipcams size ") << ipcams.size();
     nextCamera = ipcams.size();
     
     ofSaveJson("result.json", analysisJson);

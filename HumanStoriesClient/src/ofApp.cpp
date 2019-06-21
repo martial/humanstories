@@ -169,7 +169,10 @@ void ofApp::urlResponse(ofHttpResponse & response) {
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    cameraManager.analyseNextCamera(false);
+    //cameraManager.analyseNextCamera(false);
+    
+    
+    
 }
 
 //--------------------------------------------------------------
@@ -289,6 +292,14 @@ void ofApp::onMessage(ofxMQTTMessage &msg){
     
     if(msg.topic == "opacity") {
         opacity = ofToFloat(msg.payload);
+        
+        vector<string> splitted = ofSplitString(msg.payload, "/");
+        int rId     = ofToInt(splitted[0]);
+        float a  =  ofToFloat(splitted[1]);
+        
+        if(rId == raspiId)
+            opacity = a;
+        
     }
     
     if(msg.topic == "id") {

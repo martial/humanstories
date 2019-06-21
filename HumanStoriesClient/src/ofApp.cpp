@@ -114,7 +114,7 @@ void ofApp::draw(){
         cameraManager.drawAnalyzed();
     
     if(opacity > 0 ) {
-       // blackImg.draw(0.0,0.0);
+        blackImg.draw(0.0,0.0);
     }
     
     fbo.end();

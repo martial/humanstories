@@ -103,17 +103,23 @@ void ofApp::draw(){
     
     
     ofSetColor(255);
+    blackImg.draw(0.0,0.0);
+    
+    if (currentLayout == "off") {
+        return;
+    }
+
 
     fbo.begin();
     ofClear(0,255);
     ofEnableAlphaBlending();
     ofSetColor(255, 255);
 
-    blackImg.draw(0.0,0.0);
     if(!showAnalysis)
         cameraManager.drawResult();
     else
         cameraManager.drawAnalyzed();
+    
     
     ofSetColor(255, opacity);
     blackImg.draw(0.0,0.0);
